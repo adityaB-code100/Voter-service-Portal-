@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <h2>Welcome to the Voter Service Portal</h2>
+    <p>Your one-stop solution for all voter-related services.</p>
+    <div class="features">
+        <div class="feature-card">
+            <h3>Voter Registration</h3>
+            <p>Apply for voter registration with our simple online process.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Application Tracking</h3>
+            <p>Track the status of your voter applications in real-time.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Edit Applications</h3>
+            <p>Update your existing voter application information.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Admin Management</h3>
+            <p>Administrators can review and process applications.</p>
+        </div>
+    </div>
+    {% if not session.user_id %}
+    <div class="cta-buttons">
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Register Now</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

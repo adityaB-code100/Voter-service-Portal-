@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Application - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Edit Application #{{ application.id }}</h2>
+    
+    <form action="{{ url_for('edit_application', app_id=application.id) }}" method="POST">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" value="{{ application.full_name }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth:</label>
+                <input type="date" id="date_of_birth" name="date_of_birth" value="{{ application.date_of_birth }}" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male" {% if application.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if application.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if application.gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="3" required>{{ application.address }}</textarea>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" value="{{ application.state }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="district">District:</label>
+                <input type="text" id="district" name="district" value="{{ application.district }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode" value="{{ application.pincode }}" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="id_proof_type">ID Proof Type:</label>
+                <select id="id_proof_type" name="id_proof_type" required>
+                    <option value="">Select ID Proof</option>
+                    <option value="Aadhaar Card" {% if application.id_proof_type == 'Aadhaar Card' %}selected{% endif %}>Aadhaar Card</option>
+                    <option value="Passport" {% if application.id_proof_type == 'Passport' %}selected{% endif %}>Passport</option>
+                    <option value="Driving License" {% if application.id_proof_type == 'Driving License' %}selected{% endif %}>Driving License</option>
+                    <option value="Pan Card" {% if application.id_proof_type == 'Pan Card' %}selected{% endif %}>Pan Card</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_proof_number">ID Proof Number:</label>
+                <input type="text" id="id_proof_number" name="id_proof_number" value="{{ application.id_proof_number }}" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Status:</label>
+            <span class="status-badge status-{{ application.status }}">{{ application.status }}</span>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Application</button>
+            <a href="{{ url_for('application_status', app_id=application.id) }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

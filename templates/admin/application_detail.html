@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Application Review - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="application-review">
+    <h2>Review Application #{{ application.id }}</h2>
+    
+    <div class="application-details">
+        <h3>Applicant Information</h3>
+        <div class="detail-row">
+            <span class="label">Name:</span>
+            <span class="value">{{ application.user_name }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Email:</span>
+            <span class="value">{{ application.user_email }}</span>
+        </div>
+    </div>
+    
+    <div class="application-details">
+        <h3>Application Details</h3>
+        <div class="detail-row">
+            <span class="label">Full Name:</span>
+            <span class="value">{{ application.full_name }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Date of Birth:</span>
+            <span class="value">{{ application.date_of_birth }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Gender:</span>
+            <span class="value">{{ application.gender }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Address:</span>
+            <span class="value">{{ application.address }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">State:</span>
+            <span class="value">{{ application.state }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">District:</span>
+            <span class="value">{{ application.district }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Pincode:</span>
+            <span class="value">{{ application.pincode }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">ID Proof Type:</span>
+            <span class="value">{{ application.id_proof_type }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">ID Proof Number:</span>
+            <span class="value">{{ application.id_proof_number }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Status:</span>
+            <span class="value"><span class="status-badge status-{{ application.status }}">{{ application.status }}</span></span>
+        </div>
+        {% if application.election_card_number %}
+        <div class="detail-row">
+            <span class="label">Election Card Number:</span>
+            <span class="value"><strong>{{ application.election_card_number }}</strong></span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Issued Date:</span>
+            <span class="value">{{ application.election_card_issued_date }}</span>
+        </div>
+        {% endif %}
+        <div class="detail-row">
+            <span class="label">Submitted On:</span>
+            <span class="value">{{ application.created_at }}</span>
+        </div>
+        {% if application.admin_remarks %}
+        <div class="detail-row">
+            <span class="label">Previous Remarks:</span>
+            <span class="value">{{ application.admin_remarks }}</span>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="admin-actions">
+        <h3>Update Application Status</h3>
+        <form action="{{ url_for('admin_update_application_status', app_id=application.id) }}" method="POST">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="">Select Status</option>
+                    <option value="submitted" {% if application.status == 'submitted' %}selected{% endif %}>Submitted</option>
+                    <option value="in_review" {% if application.status == 'in_review' %}selected{% endif %}>In Review</option>
+                    <option value="approved" {% if application.status == 'approved' %}selected{% endif %}>Approved</option>
+                    <option value="rejected" {% if application.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="remarks">Admin Remarks:</label>
+                <textarea id="remarks" name="remarks" rows="3">{{ application.admin_remarks or '' }}</textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Status</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

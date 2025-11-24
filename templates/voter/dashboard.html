@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Voter Dashboard - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Welcome, {{ session.name }}!</h2>
+    
+    <div class="dashboard-actions">
+        <div class="action-card">
+            <h3>Submit New Application</h3>
+            <p>Apply for voter registration for the first time.</p>
+            <a href="{{ url_for('new_application') }}" class="btn btn-primary">New Application</a>
+        </div>
+        
+        <div class="action-card">
+            <h3>Edit Existing Application</h3>
+            <p>Update your existing voter application information.</p>
+            <a href="{{ url_for('view_applications') }}" class="btn btn-secondary">Edit Application</a>
+        </div>
+        
+        <div class="action-card">
+            <h3>View All Applications</h3>
+            <p>Check the status of all your voter applications.</p>
+            <a href="{{ url_for('view_applications') }}" class="btn btn-secondary">View Applications</a>
+        </div>
+        
+        <div class="action-card">
+            <h3>Track Application Status</h3>
+            <p>Track the status of a specific application.</p>
+            <a href="{{ url_for('view_applications') }}" class="btn btn-secondary">Track Status</a>
+        </div>
+    </div>
+    
+    <div class="recent-applications">
+        <h3>Recent Applications</h3>
+        {% if recent_applications %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Application ID</th>
+                    <th>Full Name</th>
+                    <th>Status</th>
+                    <th>Submitted On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in recent_applications %}
+                <tr>
+                    <td>{{ app[0] }}</td>
+                    <td>{{ app[1] }}</td>
+                    <td><span class="status-badge status-{{ app[2] }}">{{ app[2] }}</span></td>
+                    <td>{{ app[3] }}</td>
+                    <td><a href="{{ url_for('application_status', app_id=app[0]) }}" class="btn btn-small">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You haven't submitted any applications yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Voter Service Portal{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="dashboard-sections">
+    <!-- Voter Details Section -->
+    <div class="section">
+        <h3>Your Voter Details</h3>
+        {% if voter_record %}
+        <form action="{{ url_for('update_voter_details') }}" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" value="{{ voter_record[1] or '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" value="{{ voter_record[2] or '' }}">
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address">{{ voter_record[3] or '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="voter_id">Voter ID:</label>
+                <input type="text" id="voter_id" name="voter_id" value="{{ voter_record[0] }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <span class="status {{ 'verified' if voter_record[4] else 'not-verified' }}">
+                    {{ 'Verified' if voter_record[4] else 'Not Verified' }}
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Details</button>
+        </form>
+        
+        {% if not voter_record[4] %}
+        <div class="verification-section">
+            <p>Your voter ID is not yet verified in our system.</p>
+            <a href="{{ url_for('verify_voter_id') }}" class="btn btn-secondary">Verify Voter ID</a>
+        </div>
+        {% endif %}
+        {% else %}
+        <p>No voter record found. Please update your details.</p>
+        {% endif %}
+    </div>
+
+    <!-- Contact Election Office Section -->
+    <div class="section">
+        <h3>Contact Election Office</h3>
+        <form action="{{ url_for('contact_office') }}" method="POST">
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
