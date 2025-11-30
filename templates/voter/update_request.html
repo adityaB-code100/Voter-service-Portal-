@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Request Update - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Request Update</h2>
+    
+    <form action="{{ url_for('update_request') }}" method="POST">
+        <div class="form-group">
+            <label for="field_name">Field to Update:</label>
+            <select id="field_name" name="field_name" required>
+                <option value="">Select Field</option>
+                <option value="full_name">Full Name</option>
+                <option value="date_of_birth">Date of Birth</option>
+                <option value="gender">Gender</option>
+                <option value="address">Address</option>
+                <option value="state">State</option>
+                <option value="district">District</option>
+                <option value="pincode">Pincode</option>
+                <option value="id_proof_type">ID Proof Type</option>
+                <option value="id_proof_number">ID Proof Number</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="new_value">New Value:</label>
+            <input type="text" id="new_value" name="new_value" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="application_id">Application ID (if applicable):</label>
+            <input type="number" id="application_id" name="application_id">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+            <a href="{{ url_for('voter_dashboard') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

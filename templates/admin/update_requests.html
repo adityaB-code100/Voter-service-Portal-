@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Update Requests - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Pending Update Requests</h2>
+    
+    {% if update_requests %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Field</th>
+                <th>Old Value</th>
+                <th>New Value</th>
+                <th>Application ID</th>
+                <th>Submitted On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in update_requests %}
+            <tr>
+                <td>{{ request[0] }}</td>
+                <td>{{ request[10] }}</td>
+                <td>{{ request[3] }}</td>
+                <td>{{ request[4] or 'N/A' }}</td>
+                <td>{{ request[5] }}</td>
+                <td>{{ request[2] or 'N/A' }}</td>
+                <td>{{ request[8] }}</td>
+                <td>
+                    <a href="{{ url_for('admin_process_update_request', request_id=request[0]) }}" class="btn btn-small">Process</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No pending update requests.</p>
+    {% endif %}
+</div>
+{% endblock %}

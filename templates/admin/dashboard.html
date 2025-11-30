@@ -3,41 +3,41 @@
 {% block title %}Admin Dashboard - Voter Service Portal{% endblock %}
 
 {% block content %}
-<div class="admin-dashboard">
+<div class="dashboard">
     <h2>Admin Dashboard</h2>
     
-    <div class="dashboard-sections">
-        <div class="section">
-            <h3>Pending Voter Applications</h3>
-            {% if pending_applications %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>App ID</th>
-                        <th>Applicant Name</th>
-                        <th>Status</th>
-                        <th>Submitted On</th>
-                        <th>User</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for app in pending_applications %}
-                    <tr>
-                        <td>{{ app[0] }}</td>
-                        <td>{{ app[1] }}</td>
-                        <td><span class="status-badge status-{{ app[2] }}">{{ app[2] }}</span></td>
-                        <td>{{ app[3] }}</td>
-                        <td>{{ app[4] }}</td>
-                        <td><a href="{{ url_for('admin_view_application', app_id=app[0]) }}" class="btn btn-small">Review</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <p>No pending applications.</p>
-            {% endif %}
-        </div>
+   
+    
+    <div class="pending-applications">
+        <h3>Pending Applications</h3>
+        {% if pending_applications %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Application ID</th>
+                    <th>Applicant</th>
+                    <th>Full Name</th>
+                    <th>Status</th>
+                    <th>Submitted On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in pending_applications %}
+                <tr>
+                    <td>{{ app[0] }}</td>
+                    <td>{{ app[4] }}</td>
+                    <td>{{ app[1] }}</td>
+                    <td><span class="status-badge status-{{ app[2] }}">{{ app[2] }}</span></td>
+                    <td>{{ app[3] }}</td>
+                    <td><a href="{{ url_for('admin_view_application', app_id=app[0]) }}" class="btn btn-small">Review</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No pending applications.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

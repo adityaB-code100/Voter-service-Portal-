@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Process Update Request - Voter Service Portal{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Process Update Request #{{ update_request.id }}</h2>
+    
+    <div class="application-details">
+        <h3>Request Details</h3>
+        <div class="detail-row">
+            <span class="label">Field:</span>
+            <span class="value">{{ update_request.field_name }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Old Value:</span>
+            <span class="value">{{ update_request.old_value or 'N/A' }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">New Value:</span>
+            <span class="value">{{ update_request.new_value }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Application ID:</span>
+            <span class="value">{{ update_request.application_id or 'N/A' }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Submitted On:</span>
+            <span class="value">{{ update_request.created_at }}</span>
+        </div>
+    </div>
+    
+    <div class="admin-actions">
+        <h3>Process Request</h3>
+        <form action="{{ url_for('admin_process_update_request', request_id=update_request.id) }}" method="POST">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="">Select Status</option>
+                    <option value="approved" {% if update_request.status == 'approved' %}selected{% endif %}>Approve</option>
+                    <option value="rejected" {% if update_request.status == 'rejected' %}selected{% endif %}>Reject</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="remarks">Admin Remarks:</label>
+                <textarea id="remarks" name="remarks" rows="3">{{ update_request.admin_remarks or '' }}</textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Status</button>
+                <a href="{{ url_for('admin_update_requests') }}" class="btn btn-secondary">Back to Requests</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

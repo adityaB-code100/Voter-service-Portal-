@@ -60,16 +60,20 @@
             <span class="label">Status:</span>
             <span class="value"><span class="status-badge status-{{ application.status }}">{{ application.status }}</span></span>
         </div>
-        {% if application.election_card_number %}
+        
+        {% if application.election_cards %}
         <div class="detail-row">
-            <span class="label">Election Card Number:</span>
-            <span class="value"><strong>{{ application.election_card_number }}</strong></span>
-        </div>
-        <div class="detail-row">
-            <span class="label">Issued Date:</span>
-            <span class="value">{{ application.election_card_issued_date }}</span>
+            <span class="label">Election Cards:</span>
+            <div class="value">
+                {% for card in application.election_cards %}
+                <div class="election-card">
+                    <strong>{{ card[0] }}</strong> (Issued: {{ card[1] }})
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
+        
         <div class="detail-row">
             <span class="label">Submitted On:</span>
             <span class="value">{{ application.created_at }}</span>
