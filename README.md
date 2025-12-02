@@ -35,12 +35,7 @@ Voter Service Portal/
 ├── templates/         # HTML templates
 │   ├── admin/         # Admin-specific pages
 │   └── voter/         # Voter-specific pages
-└── documentation/     # Project documentation
-    ├── database_diagram.md          # Database ER diagram
-    ├── database_structure.md         # Database structure details
-    ├── database_er_diagram.md        # Alternative database diagram
-    └── PROJECT_STRUCTURE.md         # Full project structure documentation
-```
+
 
 ## Installation
 
