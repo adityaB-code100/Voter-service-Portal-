@@ -33,8 +33,8 @@ Voter Service Portal/
 ├── requirements.txt    # Python dependencies
 ├── static/            # Static assets (CSS, JS)
 ├── templates/         # HTML templates
-│   ├── admin/         # Admin-specific pages
-│   └── voter/         # Voter-specific pages
+    ├── admin/         # Admin-specific pages
+    └── voter/         # Voter-specific pages
 
 
 ## Installation
