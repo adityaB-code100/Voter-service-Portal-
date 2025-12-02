@@ -93,7 +93,7 @@ The application uses a normalized database structure with the following tables:
 
 This project is for  Made for educational purposes only.
 
-## Made By: Aditya Bandewar
+## Made By : Aditya Bandewar
 I am a full-stack web development enthusiast with experience in Flask, MySQL, HTML, CSS, and JavaScript.
 This project was created for academic and learning purposes, focusing on building secure, database-driven applications and improving real-world problem-solving skills.
 
